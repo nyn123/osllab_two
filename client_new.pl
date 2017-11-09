@@ -25,11 +25,12 @@ while(1){
 	print "Received from Server : $data\n";
 
 	# write on the socket to server.
-	print "Write your message for server::";
 	$data = <STDIN>;
 	#print $socket "$data\n";
 	# we can also send the data through IO::Socket::INET module,
 	$socket->send($data);
+
+	shutdown($socket, 1);
 
 }
 
