@@ -19,11 +19,8 @@ Listen => 5,
 Reuse => 1
 ) or die "ERROR in Socket Creation : $!\n";
 
-print "SERVER Waiting client connection on port 5000";
+print "SERVER Waiting client connection on port 5000\n";
 
-while(1)
-{
-# waiting for new client connection.
 $client_socket = $socket->accept();
 
 # get the host and port number of newly connected client.
@@ -32,8 +29,13 @@ $peer_port = $client_socket->peerport();
 
 print "Accepted New Client Connection From : $peeraddress, $peerport\n ";
 
+
+while(1)
+{
+# waiting for new client connection.
+print "Write your message for client::";
+$data=<STDIN>;
 # write operation on the newly accepted client.
-$data = <STDIN>;
 #print $client_socket "$data\n";
 # we can also send the data through IO::Socket::INET module,
 $client_socket->send($data);
@@ -43,8 +45,6 @@ $data = <$client_socket>;
 # we can also read from socket through recv()  in IO::Socket::INET
 # $client_socket->recv($data,1024);
 print "Received from Client : $data\n";
-
-shutdown($client_socket,1);
 }
 
 #$socket->close();
